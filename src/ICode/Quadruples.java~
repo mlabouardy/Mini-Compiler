@@ -1,0 +1,10 @@
+package ICode;
+
+import java.util.*;
+
+public class Quadruples{
+	private ArrayList<Entry> quadruples;
+
+	
+
+}

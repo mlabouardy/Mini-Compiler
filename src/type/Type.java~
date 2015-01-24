@@ -1,0 +1,93 @@
+package type;
+
+import type.*;
+import stree.*;
+
+public class Type {
+        private Type left;
+        private Type right;
+        private EnumType type;  
+        private Integer integer; // array size
+        private String str;
+
+        public Type(Type left, Type right, Integer i, EnumType type) {
+                this.left=left;
+                this.right=right;
+                this.integer=i;
+                this.type=type;
+        }
+
+        public Type(Type left, Type right, EnumType type) {
+                this(left,right,0, type);
+        }
+       
+        public Type(String left, EnumType type) {
+                this(null, null,0, type);
+                this.str = left;
+        }
+
+        public Type(EnumType type) {
+                this(null,null,type);
+        }
+
+        public Type getLeft() {
+                return left;
+        }
+
+        public void setLeft(Type left) {
+                this.left = left;
+        }
+
+        public Type getRight() {
+                return right;
+        }
+
+        public void setRight(Type right) {
+                this.right = right;
+        }
+
+        public EnumType getEnumType() {
+                return this.type;
+        }
+
+        public boolean compareTo(Type t){
+        switch (this.type) {
+        case CHARACTER:
+        case INT:
+        case FLOAT:
+        case STRING:
+        case BOOLEAN:
+                if (this.type == t.type)
+                return true;
+                else return false;
+        case ARRAY:
+        case POINTER:
+                if (this.type == t.type)
+                return this.left.compareTo(t.left);
+                else return false;
+        };
+        return false;  
+    	}
+
+		public Type toType(Stree stree){
+			return stree.toType();
+		}
+
+        public String toString() {
+                String result = new String();
+                switch (type) {
+                case INT:
+                case CHARACTER:
+                case STRING:
+                case FLOAT:
+                case BOOLEAN:  
+                        result += type.toString();break;
+                case ARRAY:result += left.toString() + "["+integer+"]"; break;
+                case POINTER:result += "POINTER OF "+left.toString(); break;
+                case LIST:
+                        result += "ArrayList<" + left.toString()+ ">"; break;
+                };
+                return result;
+        }
+}
+

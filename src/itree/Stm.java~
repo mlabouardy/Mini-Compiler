@@ -1,0 +1,45 @@
+package itree;
+
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
+import stree.*;
+import itree.*;
+
+public abstract class Stm{
+    protected int id;   // used in toDot
+    protected static int uniqId=0;
+    public Stm(){
+	id=uniqId++; 
+    }
+
+
+    public String toString(){return new String("STM");};
+
+    public void toDot(StringBuffer str){
+	str.append("s_"+id+" [");
+	str.append("shape=\"ellipse\", label=\""+toString()); 
+	str.append("\"];\n");
+    }
+
+    public void toDot(String file){
+	try {
+	    BufferedWriter out = new BufferedWriter(new FileWriter(file));
+	    out.write("digraph Stree {\n");
+	    StringBuffer str = new StringBuffer();
+	    toDot(str);
+	    out.write(str.toString());
+	    out.write("}\n");
+	    out.close();
+	} catch (IOException e) {
+	    System.err.println("ERROR: build dot");
+	}		
+    }
+
+	public static Stm streeToStm(Stree stree){
+		return stree.toStm();
+	}
+
+
+}
+

@@ -1,0 +1,26 @@
+package stree;
+
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
+import stree.*;
+import itree.*;
+import type.*;
+
+public class StreeSUCC extends Stree implements ITreeInterface,TypeInterface{
+
+    public StreeSUCC(Stree left, Stree right){
+		super(EnumTag.SUCC, left, right, null);
+    }
+
+
+	public ITree toITree(){
+
+		return new SEQ(left.toITree(),right.toITree());
+	}
+
+	public Type toType(){
+		return new Type(EnumType.FLOAT);
+	}
+    
+}
